@@ -22,3 +22,6 @@ ROOT_PATH = Pathname.new(Dir.pwd)
 Dir[Pathname.new("./").join("spec", "support", "**", "*.rb")].sort.each { |file| require_relative file.gsub(/^spec\//, "") }
 
 WebMock.disable_net_connect!(allow_localhost: true)
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = "tmp/rspec_examples.txt"
+end
