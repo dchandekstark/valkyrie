@@ -3,15 +3,25 @@ require 'spec_helper'
 
 RSpec.describe Valkyrie::StorageAdapter do
   let(:storage_adapter) { Valkyrie::Storage::Memory.new }
+  let(:short_name) { :example }
+
   before do
-    described_class.register(storage_adapter, :example)
+    described_class.register(storage_adapter, short_name)
   end
   after do
-    described_class.unregister(:example)
+    described_class.unregister(short_name)
   end
   describe ".register" do
     it "can register a storage_adapter by a short name for easier access" do
-      expect(described_class.find(:example)).to eq storage_adapter
+      expect(described_class.find(short_name)).to eq storage_adapter
+    end
+
+    describe "with a string" do
+      let(:short_name) { 'example' }
+
+      it "works, too" do
+        expect(described_class.find(short_name)).to eq storage_adapter
+      end
     end
   end
 
